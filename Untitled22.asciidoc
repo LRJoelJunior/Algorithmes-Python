@@ -1,0 +1,189 @@
++*In[2]:*+
+[source, ipython3]
+----
+def binary_search(arr, target):
+    left, right = 0, len(arr) - 1
+    while left <= right:
+        mid = left + (right - left) // 2
+        if arr[mid] == target:
+            return True
+        elif arr[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return False
+
+# Exemples de test
+print(binary_search([1, 2, 3, 5, 8], 6))  # Faux
+print(binary_search([1, 2, 3, 5, 8], 5))  # Vrai
+----
+
+
++*Out[2]:*+
+----
+False
+True
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+def power(a, b):
+    # Cas de base : si b est 0, retourne 1 (tout nombre élevé à la puissance 0 est 1)
+    if b == 0:
+        return 1
+    # Cas de base : si a est 0, retourne 0 (0 élevé à n'importe quelle puissance est 0)
+    elif a == 0:
+        return 0
+    # Cas de base : si b est 1, retourne 'a' (tout nombre élevé à la puissance 1 est le nombre lui-même)
+    elif b == 1:
+        return a
+    else:
+        # Si aucun des cas de base n'est vérifié, appelle récursivement la fonction power
+        # pour calculer 'a' multiplié par le résultat de 'a' élevé à la puissance de 'b-1'
+        return a * power(a, b - 1)
+
+# Exemple de test avec les valeurs 3 et 4
+print(power(3, 4))  # Résultat attendu : 81
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        # Optimisation : si aucun échange n'est effectué pendant une itération,
+        # la liste est déjà triée et nous pouvons sortir prématurément.
+        swapped = False
+        for j in range(0, n - i - 1):
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+                swapped = True
+        if not swapped:
+            break
+
+# Exemple de données
+elements = [29, 13, 22, 37, 52, 49, 46, 71, 56]
+
+# Appel de la fonction de tri à bulles
+bubble_sort(elements)
+
+# Affichage du résultat trié
+print("Résultat trié :", elements)
+----
+
+
++*In[5]:*+
+[source, ipython3]
+----
+def merge(arr, l, m, r):
+    n1 = m - l + 1
+    n2 = r - m
+    L = [0] * n1
+    R = [0] * n2
+
+    for i in range(n1):
+        L[i] = arr[l + i]
+    for j in range(n2):
+        R[j] = arr[m + 1 + j]
+
+    i = 0
+    j = 0
+    k = l
+
+    while i < n1 and j < n2:
+        if L[i] <= R[j]:
+            arr[k] = L[i]
+            i += 1
+        else:
+            arr[k] = R[j]
+            j += 1
+        k += 1
+
+    while i < n1:
+        arr[k] = L[i]
+        i += 1
+        k += 1
+
+    while j < n2:
+        arr[k] = R[j]
+        j += 1
+        k += 1
+
+def mergeSort(arr, l, r):
+    if l < r:
+        m = l + (r - l) // 2
+        mergeSort(arr, l, m)
+        mergeSort(arr, m + 1, r)
+        merge(arr, l, m, r)
+
+# Exemple de données
+elements = [29, 13, 22, 37, 52, 49, 46, 71, 56]
+
+# Appel de la fonction de tri par fusion
+mergeSort(elements, 0, len(elements) - 1)
+
+# Affichage du résultat trié
+print("Résultat trié :", elements)
+----
+
+
++*Out[5]:*+
+----
+Résultat trié : [13, 22, 29, 37, 46, 49, 52, 56, 71]
+----
+
+
++*In[6]:*+
+[source, ipython3]
+----
+def partition(arr, low, high):
+    # Choisissons le dernier élément comme pivot
+    pivot = arr[high]
+    i = low - 1  # Index du plus petit élément
+
+    for j in range(low, high):
+        # Si l'élément actuel est plus petit ou égal au pivot
+        if arr[j] <= pivot:
+            # Échangeons les éléments
+            i += 1
+            arr[i], arr[j] = arr[j], arr[i]
+
+    # Échangeons le pivot avec l'élément à la position correcte
+    arr[i + 1], arr[high] = arr[high], arr[i + 1]
+    return i + 1
+
+def quicksort(arr, low, high):
+    if low < high:
+        # Trouvons la position du pivot
+        pi = partition(arr, low, high)
+
+        # Trier les éléments avant et après le pivot
+        quicksort(arr, low, pi - 1)
+        quicksort(arr, pi + 1, high)
+
+# Exemple de données
+elements = [29, 13, 22, 37, 52, 49, 46, 71, 56]
+
+# Appel de la fonction de tri rapide
+quicksort(elements, 0, len(elements) - 1)
+
+# Affichage du résultat trié
+print("Résultat trié :", elements)
+----
+
+
++*Out[6]:*+
+----
+Résultat trié : [13, 22, 29, 37, 46, 49, 52, 56, 71]
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+
+----
